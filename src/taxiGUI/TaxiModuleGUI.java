@@ -2,7 +2,6 @@ package taxiGUI;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.*;
-import javax.swing.LayoutStyle.*;
 import companyComm.TaxiSide;
 import config.Configuration;
 import draw.TaxiMapCanvas;
@@ -73,10 +72,10 @@ public class TaxiModuleGUI extends JFrame {
 				mapCanvas);
 		mapCanvas.setLayout(gl_mapCanvas);
 		gl_mapCanvas.setHorizontalGroup(gl_mapCanvas.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 700,
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 701,
 				Short.MAX_VALUE));
 		gl_mapCanvas.setVerticalGroup(gl_mapCanvas.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 700,
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 701,
 				Short.MAX_VALUE));
 
 		gpsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,7 +98,7 @@ public class TaxiModuleGUI extends JFrame {
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
-					.addComponent(mapCanvas, GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+					.addComponent(mapCanvas, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
 					.addGap(10)
 					.addGroup(layout.createParallelGroup(Alignment.LEADING)
 						.addComponent(gpsLabel, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
@@ -116,7 +115,7 @@ public class TaxiModuleGUI extends JFrame {
 					.addComponent(buttonUpdateCoords, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 					.addGap(10)
 					.addComponent(menuCanvas, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))
-				.addComponent(mapCanvas, GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+				.addComponent(mapCanvas, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
 		);
 		getContentPane().setLayout(layout);
 

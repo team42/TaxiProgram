@@ -1,18 +1,17 @@
 package draw;
 
 import config.Configuration;
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import model.*;
 
-@SuppressWarnings("serial")
 public class TaxiMap {
 
 	ArrayList<TripLockedTime> tripList = new ArrayList<TripLockedTime>();
 	Algorithm algorithm = new Algorithm();
 	
-	double scale = 0.348;
+	double scale = 0.35;
+	double scaleZoom = 0.15;
 	
 	Configuration config = Configuration.getConfiguration();
 
@@ -24,15 +23,14 @@ public class TaxiMap {
 	}
 
 	public void draw(Graphics g) {
-		CoordinateSystem S2 = new CoordinateSystem(scale, scale, 0, scale * 2000);
+		
+		int taxiX = Integer.parseInt(config.getTaxiCoord().substring(0, 4));
+		int taxiY = Integer.parseInt(config.getTaxiCoord().substring(5, 9));
+		
+		CoordinateSystem S2 = new CoordinateSystem(scale, scale, (scale * (1000-taxiX)) - ((scale-0.35) * 1000), scale * (1000+taxiY) - ((scale-0.35) * 1000));
 
 		int xLength = 2000;
 		int yLength = 2000;
-
-		S2.drawLine(g, new Vector(0, 0), new Vector(0, yLength));
-		S2.drawLine(g, new Vector(0, yLength), new Vector(xLength, yLength));
-		S2.drawLine(g, new Vector(xLength, yLength), new Vector(xLength, 0));
-		S2.drawLine(g, new Vector(xLength, 0), new Vector(0, 0));
 
 		g.setColor(Color.BLACK);
 
@@ -46,12 +44,12 @@ public class TaxiMap {
 				int bx = mapList.get(neighbor).getXCoord();
 				int by = mapList.get(neighbor).getYCoord();
 
-				S2.drawStationLine(g, ax, ay, bx, by, false);
+				S2.drawRoad(g, ax, ay, bx, by);
 			}
 		}
 		
 		for (int i = 0; i < mapList.size(); i++) {
-			S2.drawStation(g, mapList.get(i).getXCoord(), mapList.get(i).getYCoord());
+			S2.drawIntersection(g, mapList.get(i).getXCoord(), mapList.get(i).getYCoord());
 		}
 
 		int start = config.getTaxiPosition();
@@ -60,7 +58,7 @@ public class TaxiMap {
 		int ownX = Integer.parseInt(config.getTaxiCoord().substring(0, 4));
 		int ownY = Integer.parseInt(config.getTaxiCoord().substring(5, 9));
 		
-		S2.drawPoint(g, new Vector(ownX, ownY), 20);
+		S2.drawPoint(g, new Vector(ownX, ownY), 10);
 		
 		for(int i=0; i<tripList.size(); i++) {
 			route = algorithm.Route(start, tripList.get(i).getCoords());
@@ -81,5 +79,21 @@ public class TaxiMap {
 	
 	public void setTripList(ArrayList<TripLockedTime> tripList) {
 		this.tripList = tripList;
+	}
+	
+	public void zoomIn() {
+		if(scale < 1.1) {
+			scale += scaleZoom;
+		} else {
+			scale = 1.1;
+		}
+	}
+	
+	public void zoomOut() {
+		if(scale > 0.35) {
+			scale -= scaleZoom;
+		} else {
+			scale = 0.35;
+		}
 	}
 }

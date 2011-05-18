@@ -45,4 +45,14 @@ public class TaxiMapCanvas extends JPanel {
     	taxiMap.setTripList(tripList);
     	repaint();
     }
+    
+    public void zoomIn() {
+    	taxiMap.zoomIn();
+		repaint();
+	}
+	
+	public void zoomOut() {
+		taxiMap.zoomOut();
+		repaint();
+	}
 }

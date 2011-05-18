@@ -9,8 +9,8 @@ import model.*;
 
 public class TaxiMenu {
 
-	int buWidth = 200;
-	int buHeight = 55;
+	int buWidth = 190;
+	int buHeight = 60;
 	
 	public int currentSelected = 1;
     
@@ -24,17 +24,20 @@ public class TaxiMenu {
     	
     	TripLockedTime curTrip = null;
     	
-    	g.fillRect(5, ((currentSelected - 1) * (buHeight+10)), buWidth, buHeight);
+    	if(tripLIST.size() > 0) {
+    		g.fillRect(5, ((currentSelected - 1) * (buHeight+10)), buWidth, buHeight);
+    	}
     	
     	g.setColor(Color.LIGHT_GRAY);
+
     	for (int i = 0; i < tripLIST.size(); i++) {
             curTrip = tripLIST.get(i);
             if(curTrip.getAccepted() == 1) {
             	g.setColor(Color.GREEN);
-            	g.fillRect(5, (i * (buHeight+10)), buWidth, buHeight);
+            	g.fillRect(7, 2 + (i * (buHeight+10)), buWidth-4, buHeight-4);
             	g.setColor(Color.LIGHT_GRAY);
             } else {
-            	g.fillRect(5, (i * (buHeight+10)), buWidth, buHeight);
+            	g.fillRect(7, 2 + (i * (buHeight+10)), buWidth-4, buHeight-4);
             }
         }
 
@@ -56,7 +59,7 @@ public class TaxiMenu {
 
     public void Up() {
         currentSelected = currentSelected-1;
-        if (currentSelected < 1) {
+        if (currentSelected <= 1) {
             currentSelected = tripLIST.size();
         }
     }

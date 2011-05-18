@@ -37,8 +37,12 @@ public class SWsimulation extends JFrame {
 					tmGUI.Decline();
 				}
 				// Space
-				if(e.getKeyCode() == 32) {
-					tmGUI.OK();
+				if(e.getKeyCode() == 16) {
+					tmGUI.mapCanvas.zoomIn();
+				}
+				
+				if(e.getKeyCode() == 17) {
+					tmGUI.mapCanvas.zoomOut();
 				}
 				
 			} 
