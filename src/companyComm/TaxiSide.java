@@ -15,7 +15,6 @@ public class TaxiSide {
 	private DatagramSocket datagramSocket;
 	private DatagramPacket inPacket, outPacket;
 	private byte[] buffer;
-	private byte[] address = { (byte)192, (byte)168, (byte)1, (byte)10 };
 	
 	ArrayList<TripLockedTime> tripList;
 	
@@ -30,17 +29,15 @@ public class TaxiSide {
 	
 	public TaxiSide(TaxiModuleGUI tmGUI) {
 		
+		try {
+			host = InetAddress.getByName(config.getCompany());
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		
 		tripList = new ArrayList<TripLockedTime>();
 		
 		this.tmGUI = tmGUI;
-		
-		try {
-			//host = InetAddress.getLocalHost();
-			host = InetAddress.getByAddress(address);
-		} catch(UnknownHostException uhEx) {
-			System.out.println("Host ID not found!");
-			System.exit(1);
-		}
 		
 		timer = new Timer();
 		timer.schedule(new updateTable(), 1000, 5000);

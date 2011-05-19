@@ -25,7 +25,7 @@ public class Configuration {
 	private MapDAO mapDAO = new MapDAO();
 	private Algorithm algorithm = new Algorithm();
 
-	private String taxiID, taxiCoord;
+	private String taxiID, taxiCoord, company;
 
 	private int taxiPos;
 
@@ -50,7 +50,10 @@ public class Configuration {
 			taxiCoordinate = JOptionPane
 					.showInputDialog("Insert Taxi Coordinate\nin format xxxx,yyyy");
 		}
+		
+		company = JOptionPane.showInputDialog("Inter Company IP:");
 
+		setCompany(company);
 		setTaxiID(taxiID);
 		setTaxiCoord(taxiCoordinate);
 	}
@@ -121,5 +124,13 @@ public class Configuration {
 
 	public int getTaxiPosition() {
 		return taxiPos;
+	}
+	
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	
+	public String getCompany() {
+		return company;
 	}
 }
