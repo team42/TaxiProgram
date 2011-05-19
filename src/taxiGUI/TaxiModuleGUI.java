@@ -6,6 +6,8 @@ import companyComm.TaxiSide;
 import config.Configuration;
 import draw.TaxiMapCanvas;
 import draw.TaxiMenuCanvas;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /*
  * TaxiModuleGUI.java
@@ -24,26 +26,19 @@ public class TaxiModuleGUI extends JFrame {
 	public TaxiMapCanvas mapCanvas;
 	public TaxiSide taxiSide;
 
-	Configuration config = Configuration.getConfiguration();
+	Configuration config;
 	
 	/** Creates new form TaxiModuleGUI */
 	public TaxiModuleGUI() {
-		String taxiID = "";
-		String taxiCoordinate = "";
+		config = Configuration.getConfiguration();
 		
-		while(taxiID.length() != 6) {
-			taxiID = JOptionPane.showInputDialog("Insert Taxi ID\nMust be 6 characters");
-		}
 		
-		while(taxiCoordinate.length() != 9) {
-			taxiCoordinate = JOptionPane.showInputDialog("Insert Taxi Coordinate\nin format xxxx,yyyy");
-		}
-		
-		config.setTaxiID(taxiID);
-		config.setTaxiCoord(taxiCoordinate);
 		
 		setResizable(false);
 		initComponents();
+		
+		gpsLabel.setText(config.getTaxiCoord());
+		
 		this.setVisible(true);
 		taxiSide = new TaxiSide(this);
 	}
@@ -60,7 +55,24 @@ public class TaxiModuleGUI extends JFrame {
 		buttonUpdateCoords = new JButton();
 		menuCanvas = new TaxiMenuCanvas();
 		mapCanvas = new TaxiMapCanvas();
-
+		
+		buttonUpdateCoords.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String gpsCoords = "";
+				
+				while(gpsCoords.length() != 9) {
+					gpsCoords = JOptionPane.showInputDialog("Insert gps coordinates\nIn format xxxx,yyyy");
+					if(gpsCoords == null) gpsCoords = "";
+				}
+				
+				if(gpsCoords != null) {
+					config.setTaxiCoord(gpsCoords);
+					gpsLabel.setText(gpsCoords);
+					mapCanvas.repaint();
+				}
+			}
+		});
+		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		mapCanvas.setBackground(new java.awt.Color(255, 255, 255));

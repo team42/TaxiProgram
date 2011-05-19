@@ -9,8 +9,8 @@ import model.*;
 
 public class TaxiMenu {
 
-	int buWidth = 190;
-	int buHeight = 60;
+	int buWidth = 200;
+	int buHeight = 55;
 	
 	public int currentSelected = 1;
     
@@ -47,19 +47,19 @@ public class TaxiMenu {
         
         for (int i = 0; i < tripLIST.size(); i++) {
             curTrip = tripLIST.get(i);
-        	g.drawString("ID: " + curTrip.getTripID(), 20, 30 + (i * (buHeight+10)));
-        	g.drawString(curTrip.getCoords(), 20, 50 + (i * (buHeight+10)));
-        	g.drawString(curTrip.getTime(), 152, 30 + (i * (buHeight+10)));
+        	g.drawString("ID: " + curTrip.getTripID(), 15, 20 + (i * (buHeight+10)));
+        	g.drawString(curTrip.getCoords(), 15, 40 + (i * (buHeight+10)));
+        	g.drawString(curTrip.getTime(), 152, 20 + (i * (buHeight+10)));
         }
         
         for (int i = 0; i < tripLIST.size(); i++) {
-            g.drawRect(10, 10 + (i * (buHeight+10)), buWidth, buHeight);
+            g.drawRect(6, 1 + (i * (buHeight+10)), buWidth-3, buHeight-3);
         }
     }
 
     public void Up() {
         currentSelected = currentSelected-1;
-        if (currentSelected <= 1) {
+        if (currentSelected < 1) {
             currentSelected = tripLIST.size();
         }
     }

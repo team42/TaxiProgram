@@ -10,6 +10,8 @@ public class TaxiMap {
 	ArrayList<TripLockedTime> tripList = new ArrayList<TripLockedTime>();
 	Algorithm algorithm = new Algorithm();
 	
+	public int currentSelected = 1;
+	
 	double scale = 0.35;
 	double scaleZoom = 0.15;
 	
@@ -55,14 +57,16 @@ public class TaxiMap {
 		int start = config.getTaxiPosition();
 		int tempId;
 		
-		int ownX = Integer.parseInt(config.getTaxiCoord().substring(0, 4));
-		int ownY = Integer.parseInt(config.getTaxiCoord().substring(5, 9));
-		
-		S2.drawPoint(g, new Vector(ownX, ownY), 10);
-		
 		for(int i=0; i<tripList.size(); i++) {
 			route = algorithm.Route(start, tripList.get(i).getCoords());
 			int j=0;
+			
+			if(i == currentSelected-1) {
+				g.setColor(Color.GREEN);
+			} else {
+				g.setColor(Color.RED);
+			}
+			
 			while (j < route.size() - 1) {
 				tempId = route.get(j);
 				int Ax = mapList.get(tempId).getXCoord();
@@ -75,6 +79,11 @@ public class TaxiMap {
 				S2.drawRouteLine(g, Ax, Ay, Bx, By);
 			}
 		}
+		
+		int ownX = Integer.parseInt(config.getTaxiCoord().substring(0, 4));
+		int ownY = Integer.parseInt(config.getTaxiCoord().substring(5, 9));
+		
+		S2.drawPoint(g, new Vector(ownX, ownY), 10);
 	}
 	
 	public void setTripList(ArrayList<TripLockedTime> tripList) {
@@ -96,4 +105,18 @@ public class TaxiMap {
 			scale = 0.35;
 		}
 	}
+	
+    public void Up() {
+        currentSelected = currentSelected-1;
+        if (currentSelected < 1) {
+            currentSelected = tripList.size();
+        }
+    }
+
+    public void Down() {
+        currentSelected = currentSelected+1;
+        if (currentSelected > tripList.size()) {
+            currentSelected = 1;
+        }
+    }
 }

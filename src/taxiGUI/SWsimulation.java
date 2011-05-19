@@ -22,25 +22,29 @@ public class SWsimulation extends JFrame {
 		
 		canvas.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
+				// Up
 				if(e.getKeyCode() == 38) {
 					tmGUI.menuCanvas.UP();
+					tmGUI.mapCanvas.UP();
 				}
+				// Down
 				if(e.getKeyCode() == 40) {
 					tmGUI.menuCanvas.DW();
+					tmGUI.mapCanvas.DW();
 				}
-				// Enter
+				// Enter / Accept / Finish
 				if(e.getKeyCode() == 10) {
 					tmGUI.Accept();
 				}
-				// Backspace
+				// Backspace / Decline / Request new Taxi
 				if(e.getKeyCode() == 8) {
 					tmGUI.Decline();
 				}
-				// Space
+				// Alt / Zoom In
 				if(e.getKeyCode() == 16) {
 					tmGUI.mapCanvas.zoomIn();
 				}
-				
+				// Ctrl / Zoom Out
 				if(e.getKeyCode() == 17) {
 					tmGUI.mapCanvas.zoomOut();
 				}

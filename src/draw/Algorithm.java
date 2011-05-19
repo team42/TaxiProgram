@@ -100,7 +100,7 @@ public class Algorithm {
 					currentLowestFID = (int) mapList.get(i).getID();
 				}
 			}
-
+			
 			currentID = currentLowestFID;
 			int i = mapList.get(currentID).getLinks(); // Number of Neighbors
 			int n = 1; // Neighbor number

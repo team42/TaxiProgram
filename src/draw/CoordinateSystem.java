@@ -85,7 +85,6 @@ public class CoordinateSystem {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(3));
 
-		g2.setColor(Color.RED);
 		g2.drawLine((int) p1x.x, (int) p1x.y, (int) p2x.x, (int) p2x.y);
 
 		g2.setStroke(new BasicStroke(1));

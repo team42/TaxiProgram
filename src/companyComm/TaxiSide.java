@@ -15,7 +15,7 @@ public class TaxiSide {
 	private DatagramSocket datagramSocket;
 	private DatagramPacket inPacket, outPacket;
 	private byte[] buffer;
-	private byte[] address = { (byte)192, (byte)168, (byte)1, (byte)102 };
+	private byte[] address = { (byte)192, (byte)168, (byte)1, (byte)104 };
 	
 	ArrayList<TripLockedTime> tripList;
 	
@@ -100,7 +100,7 @@ public class TaxiSide {
 		}
 		
 		timer = new Timer();
-		timer.schedule(new updateTable(), 5000, 5000);
+		timer.schedule(new updateTable(), 2000, 5000);
 	}
 	
 	public void getTable() {

@@ -46,6 +46,16 @@ public class TaxiMapCanvas extends JPanel {
     	repaint();
     }
     
+    public void UP() {
+        taxiMap.Up();
+        repaint();
+    }
+
+    public void DW() {
+        taxiMap.Down();
+        repaint();
+    }
+    
     public void zoomIn() {
     	taxiMap.zoomIn();
 		repaint();
