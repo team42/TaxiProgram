@@ -58,10 +58,20 @@ public class ApplicationLayer {
 		System.out.println("Data received: " + data);
 		if(data.equals("UP")) {
 			tmGUI.menuCanvas.UP();
+			tmGUI.mapCanvas.UP();
 		} else if(data.equals("DW")) {
 			tmGUI.menuCanvas.DW();
-		} else if(data.equals("OK")) {
-			//tmGUI.taxiMenuCanvas1.OK();
+			tmGUI.mapCanvas.DW();
+		} else if(data.equals("AC")) {
+			tmGUI.Accept();
+		} else if(data.equals("DC")) {
+			tmGUI.Decline();
+		} else if(data.equals("ZI")) {
+			tmGUI.mapCanvas.zoomIn();
+		} else if(data.equals("ZO")) {
+			tmGUI.mapCanvas.zoomOut();
+		} else {
+			System.out.println("UNKNOWN COMMAND!!!");
 		}
 	}	
 }

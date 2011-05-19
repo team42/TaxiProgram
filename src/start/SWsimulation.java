@@ -1,5 +1,7 @@
-package taxiGUI;
+package start;
 import javax.swing.*;
+
+import taxiGUI.TaxiModuleGUI;
 
 //http://www.particle.kth.se/~lindsey/JavaCourse/Book/Part1/Java/Chapter12/catchingKeystrokes.html
 
@@ -48,7 +50,6 @@ public class SWsimulation extends JFrame {
 				if(e.getKeyCode() == 17) {
 					tmGUI.mapCanvas.zoomOut();
 				}
-				
 			} 
 		});
 		

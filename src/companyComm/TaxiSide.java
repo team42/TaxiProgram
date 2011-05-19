@@ -15,7 +15,7 @@ public class TaxiSide {
 	private DatagramSocket datagramSocket;
 	private DatagramPacket inPacket, outPacket;
 	private byte[] buffer;
-	private byte[] address = { (byte)192, (byte)168, (byte)1, (byte)104 };
+	private byte[] address = { (byte)192, (byte)168, (byte)1, (byte)10 };
 	
 	ArrayList<TripLockedTime> tripList;
 	

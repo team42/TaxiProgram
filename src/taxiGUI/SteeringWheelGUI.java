@@ -24,33 +24,31 @@ public class SteeringWheelGUI extends JFrame {
 		
 		canvas.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
+				// Up
 				if(e.getKeyCode() == 38) {
 					appLayer.Sender("UP");
-					//Change UP Icon
 				}
+				// Down
 				if(e.getKeyCode() == 40) {
 					appLayer.Sender("DW");
-					//Change DW Icon
 				}
+				// Enter / Accept / Finish
+				if(e.getKeyCode() == 10) {
+					appLayer.Sender("AC");
+				}
+				// Backspace / Decline / Request new Taxi
+				if(e.getKeyCode() == 8) {
+					appLayer.Sender("DC");
+				}
+				// Alt / Zoom In
+				if(e.getKeyCode() == 16) {
+					appLayer.Sender("ZI");
+				}
+				// Ctrl / Zoom Out
 				if(e.getKeyCode() == 17) {
-					appLayer.Sender("OK");
-					//Change OK Icon
+					appLayer.Sender("ZO");
 				}
-			}
-			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == 38) {
-					//Change UP Icon back
-					//System.out.println("UP icon back");
-				}
-				if(e.getKeyCode() == 40) {
-					//Change DW Icon back
-					//System.out.println("DW icon back");
-				}
-				if(e.getKeyCode() == 17) {
-					//Change OK Icon back
-					//System.out.println("OK icon back");
-				}
-		    } 
+			} 
 		});
 		
 		canvas.setFocusable (true);
