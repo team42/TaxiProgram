@@ -22,6 +22,8 @@ public class NetworkLayer {
 	// boolean indicating if this is a sender or receiver initialization
 	boolean sender = false;
 	
+	String identifier = "";
+	
 	/**
 	 * Constructor - Sender mode
 	 * 
@@ -36,6 +38,7 @@ public class NetworkLayer {
 		transportSe = transp;
 		link = new LinkLayer(port, this);
 		sender = true;
+		identifier = "1";
 	}
 	
 	/**
@@ -51,6 +54,7 @@ public class NetworkLayer {
 		link = linkL;
 		transportRe = new TransportLayerReceiver(this);
 		sender = false;
+		identifier = "0";
 	}
 	
 	/**
@@ -63,22 +67,7 @@ public class NetworkLayer {
 	 * @param data - Data you wish to send
 	 */
 	public void Sender(String data) {
-		String localIP = "";
-		String IPlength = "";
-		
-		try {
-			localIP = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			System.out.println("Can't find local IP");
-		}
-		
-		IPlength = localIP.length() + "";
-		
-		if(IPlength.length() < 2) {
-			IPlength = "0" + IPlength;
-		}
-				
-		link.Sender(IPlength + localIP + data);
+		link.Sender(identifier + data);
 	}
 	
 	/**
@@ -93,24 +82,13 @@ public class NetworkLayer {
 	 */
 	public void receiver(String data) {
 		
-		String senderIP = "";
-		String localIP = "";
-		int IPlength = 0;
+		String receiveIdentifier = data.substring(0, 1);
 		
-		try {
-			localIP = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			System.out.println("Can't find local IP");
-		}
-		
-		IPlength = Integer.parseInt(data.substring(0, 2));
-		
-		senderIP = data.substring(2, 2+IPlength);
-		if(!senderIP.equals(localIP)) {
+		if(!identifier.equals(receiveIdentifier)) {
 			if(sender) {
-				transportSe.receiver(data.substring(2+IPlength));
+				transportSe.receiver(data.substring(1));
 			} else {
-				transportRe.receiver(data.substring(2+IPlength));
+				transportRe.receiver(data.substring(1));
 			}
 		}
 	}
