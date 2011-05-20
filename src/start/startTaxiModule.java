@@ -3,6 +3,12 @@ package start;
 import java.util.TooManyListenersException;
 import irProtocol.*;
 
+/**
+ * Start Taxi Module
+ * 
+ * @author Nicolai
+ *
+ */
 public class startTaxiModule {
 
 	public static void main(String[] args) throws TooManyListenersException, InterruptedException {

@@ -9,7 +9,7 @@ public class ApplicationLayer {
 	TransportLayerSender transportSe = null;
 	
 	// Taxi Module GUI
-	//TaxiModuleGUI tmGUI = null;
+	TaxiModuleGUI tmGUI = null;
 	
 	/**
 	 * Constructor - Sender mode
@@ -31,8 +31,8 @@ public class ApplicationLayer {
 	 * @throws TooManyListenersException
 	 */
 	public ApplicationLayer() throws TooManyListenersException {
-		//tmGUI = new TaxiModuleGUI();
-		//tmGUI.setVisible(true);
+		tmGUI = new TaxiModuleGUI();
+		tmGUI.setVisible(true);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class ApplicationLayer {
 	 */
 	public void receiver(String data) {
 		System.out.println("Data received: " + data);
-		/*if(data.equals("UP")) {
+		if(data.equals("UP")) {
 			tmGUI.menuCanvas.UP();
 			tmGUI.mapCanvas.UP();
 		} else if(data.equals("DW")) {
@@ -72,6 +72,6 @@ public class ApplicationLayer {
 			tmGUI.mapCanvas.zoomOut();
 		} else {
 			System.out.println("UNKNOWN COMMAND!!!");
-		}*/
+		}
 	}	
 }

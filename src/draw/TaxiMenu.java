@@ -5,21 +5,48 @@ import java.util.ArrayList;
 
 import model.*;
 
-// @author Nicolai
+/**
+ * Class for drawing the taxi menu
+ * Draws the triplist menu
+ * Colour codes are used as indicater
+ * Thick line is indicating which trip is currently selected
+ * 
+ * @author Nicolai
+ *
+ */
 
 public class TaxiMenu {
 
+	// Width and heigh of buttons
 	int buWidth = 200;
 	int buHeight = 55;
 	
+	// Currently selected trip
 	public int currentSelected = 1;
     
+	// Triplist
     public ArrayList<TripLockedTime> tripLIST;
     
+    /**
+     * Constructor
+     * 
+     * Initialize tripList
+     */
     public TaxiMenu() {
     	tripLIST = new ArrayList<TripLockedTime>();
     }
 
+    /**
+     * Draws Menu
+     * Currenty selected indicated by thick line
+     * Trip are drawn.
+     * - Green is accepted
+     * - Light grey is offered
+     * Trip information is drawn
+     * Black outline is drawn
+     * 
+     * @param g
+     */
     public void draw(Graphics g) {
     	
     	TripLockedTime curTrip = null;
@@ -57,6 +84,9 @@ public class TaxiMenu {
         }
     }
 
+    /**
+     * Go up in menu
+     */
     public void Up() {
         currentSelected = currentSelected-1;
         if (currentSelected < 1) {
@@ -64,6 +94,9 @@ public class TaxiMenu {
         }
     }
 
+    /**
+     * Go down in menu
+     */
     public void Down() {
         currentSelected = currentSelected+1;
         if (currentSelected > tripLIST.size()) {
@@ -71,6 +104,11 @@ public class TaxiMenu {
         }
     }
     
+    /**
+     * Set new trip list
+     * 
+     * @param tripList
+     */
     public void setTripList(ArrayList<TripLockedTime> tripList) {
     	tripLIST = tripList;
     }

@@ -1,4 +1,4 @@
-package taxiGUI;
+package start;
 import javax.swing.*;
 import irProtocol.*;
 
@@ -9,10 +9,35 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.TooManyListenersException;
 
-@SuppressWarnings("serial")
+/**
+ * Class responsible for the Steering wheel interface
+ * 
+ */
 
+@SuppressWarnings("serial")
 public class SteeringWheelGUI extends JFrame {
 
+	/**
+	 * Constructor
+	 * 
+	 * Initialize an application layer
+	 * Makes a JPanel
+	 * Add a keylistener to the JPanel
+	 * - Arrow up
+	 * -- Send command "UP" to application layer
+	 * - Arrow down
+	 * -- Send command "DW" to application layer
+	 * - Enter
+	 * -- Send command "AC" to application layer
+	 * - Back-space
+	 * -- Send command "DC" to application layer
+	 * - Alt
+	 * -- Send command "ZI" to application layer
+	 * - Ctrl
+	 * -- Send command "ZO" to application layer
+	 * 
+	 * @throws TooManyListenersException
+	 */
 	public SteeringWheelGUI() throws TooManyListenersException {
 		
 		final ApplicationLayer appLayer = new ApplicationLayer("/dev/ttyUSB0");
@@ -54,6 +79,12 @@ public class SteeringWheelGUI extends JFrame {
 		canvas.setFocusable (true);
     }
 
+	/**
+	 * Start Steering wheel
+	 * 
+	 * @param args
+	 * @throws TooManyListenersException
+	 */
     public static void main(String[] args) throws TooManyListenersException {
 
     	SteeringWheelGUI SWG = new SteeringWheelGUI();

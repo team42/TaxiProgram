@@ -22,18 +22,14 @@ public class TransportLayerSender {
 	public String ACK = "1";
 	
 	// Variables for time measurements and timeout calculation
-	long samRTT, estRTT, devRTT = 0;
-	long ts, sRTT = 0;
-	long timeout = 500;
+	long ts = 0;
+	long timeout = 400;
 	
 	// Current state
 	int senderState = 0;
 	
 	// Ack status
 	boolean msgAcked = false;
-	
-	// Set first RTT
-	boolean firstRTT = true;
 	
 	// Constructor
 	// Create new networklayer and set application layer to the initializer for this object
@@ -56,9 +52,8 @@ public class TransportLayerSender {
 					// Send data with sequense number 0
 					network.Sender("0" + data);
 					
-					// Start timer for timeout and RTT measurements
+					// Start timer for timeout
 					ts = System.currentTimeMillis();
-					sRTT = System.currentTimeMillis();
 					
 					// Set message acked false
 					msgAcked = false;
@@ -76,14 +71,8 @@ public class TransportLayerSender {
 						senderState = 1;
 					
 					// If message have been acked:
-					// Calculate timeout and go to next state
 					} else if (ACK.equals("0")) {
 						msgAcked = true;
-						samRTT = System.currentTimeMillis()-sRTT;
-
-						timeout = CalcTimeout(samRTT);
-						
-						System.out.println(samRTT + "/" + estRTT + "/" + devRTT + "/" + timeout);
 						senderState = 2;
 					}
 					break;
@@ -91,9 +80,8 @@ public class TransportLayerSender {
 					// Send data with sequense number 0
 					network.Sender("1" + data);
 					
-					// Start timer for timeout and RTT measurements
+					// Start timer for timeout and
 					ts = System.currentTimeMillis();
-					sRTT = System.currentTimeMillis();
 					
 					// Set message acked false
 					msgAcked = false;
@@ -111,14 +99,8 @@ public class TransportLayerSender {
 						senderState = 3;
 					
 					// If message have been acked:
-					// Calculate timeout and go to next state
 					} else if (ACK.equals("1")) {
 						msgAcked = true;
-						samRTT = System.currentTimeMillis()-sRTT;
-						
-						timeout = CalcTimeout(samRTT);
-						
-						System.out.println(samRTT + "/" + estRTT + "/" + devRTT + "/" + timeout);
 						senderState = 0;
 					}
 					break;
@@ -140,47 +122,5 @@ public class TransportLayerSender {
 			ACK = "0";
 		}
 		System.out.println("Last ACK: " + ACK);
-	}
-	
-	/**
-	 * CalcTimeout
-	 * 
-	 * Calcualte timeout the same way as TCP
-	 * 
-	 * @param SampleRTT - Last RTT measurement
-	 * @returns the calculated timeout
-	 */
-	private long CalcTimeout(long SampleRTT){
-		// Define alpha and beta
-		double alpha = 0.125;
-		double beta = 0.25;
-		
-		// Initialise temporary calculated timeout
-		long calcedTO = 0;		
-		
-		// If it's the first time:
-		// Set estimated RTT to the sample timeout
-		// Set devRTT to beta*estRTT
-		if(firstRTT) {
-			estRTT = samRTT;
-			devRTT = (long)beta*estRTT;
-			firstRTT = false;
-		// If it's now the first time:
-		// Estimated RTT is modified by sampletimeout
-		// devRTT is also calculated
-		} else {
-			estRTT = (long)((1-alpha)*estRTT+alpha*samRTT);
-			devRTT = (long)((1-beta)*devRTT+beta*Math.abs(samRTT-estRTT));
-		}
-		
-		// the Timeout is set to the estimated RTT plus 4 times devRTT
-		calcedTO = (long)(estRTT + 4*devRTT);
-		
-		// if the calculated timeout is above 1 second, it's set to a second
-		if(calcedTO > 1000) {
-			calcedTO = 1000;
-		}
-		
-		return calcedTO;
 	}
 }

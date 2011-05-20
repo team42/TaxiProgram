@@ -34,6 +34,11 @@ public class Configuration {
 	/**
 	 * Make default constructor private to make sure no other class can
 	 * instantiate.
+	 * 
+	 * Map information is read from the database
+	 * taxi id, taxi coordinates and company address
+	 * is entered and set
+	 * 
 	 */
 	private Configuration() {
 		mapList = mapDAO.getMap();
@@ -51,7 +56,7 @@ public class Configuration {
 					.showInputDialog("Insert Taxi Coordinate\nin format xxxx,yyyy");
 		}
 		
-		company = JOptionPane.showInputDialog("Inter Company IP:");
+		company = JOptionPane.showInputDialog("Enter Company IP:");
 
 		setCompany(company);
 		setTaxiID(taxiID);
@@ -101,35 +106,75 @@ public class Configuration {
 		return mapList;
 	}
 
+	/**
+	 * Set the taxi ID
+	 * 
+	 * @param taxiID
+	 */
 	public void setTaxiID(String taxiID) {
 		this.taxiID = taxiID;
 	}
 
+	/**
+	 * Returns the taxi ID
+	 * 
+	 * @return
+	 */
 	public String getTaxiID() {
 		return taxiID;
 	}
 
+	/**
+	 * Set the taxi coordinates
+	 * 
+	 * @param taxiCoord
+	 */
 	public void setTaxiCoord(String taxiCoord) {
 		this.taxiCoord = taxiCoord;
 		setTaxiPosition(taxiCoord);
 	}
 
+	/**
+	 * returns the taxi coordinates
+	 * 
+	 * @return
+	 */
 	public String getTaxiCoord() {
 		return taxiCoord;
 	}
 
+	/**
+	 * Finds the closest intersection ID and set for taxi
+	 * 
+	 * @param taxiPos
+	 */
 	private void setTaxiPosition(String taxiPos) {
 		this.taxiPos = algorithm.findClosestPoint(taxiPos);
 	}
 
+	/**
+	 * Returns closest intersection ID
+	 * 
+	 * @return
+	 */
 	public int getTaxiPosition() {
 		return taxiPos;
 	}
 	
+	/**
+	 * Set company address
+	 * 
+	 * @param company
+	 */
 	public void setCompany(String company) {
 		this.company = company;
 	}
 	
+	/**
+	 * Return company address
+	 * 
+	 * @return
+	 */
 	public String getCompany() {
 		return company;
 	}

@@ -12,6 +12,10 @@ import java.util.TooManyListenersException;
 
 @SuppressWarnings("serial")
 
+/**
+ * Start a simulation of a steering wheel GUI
+ * 
+ */
 public class SWsimulation extends JFrame {
 
 	public SWsimulation() throws TooManyListenersException {

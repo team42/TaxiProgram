@@ -1,6 +1,4 @@
 package irProtocol;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.TooManyListenersException;
 
 /**
@@ -60,9 +58,7 @@ public class NetworkLayer {
 	/**
 	 * Sender
 	 * 
-	 * Find local IP
-	 * Add local IP and length of this IP to the data
-	 * Send data to the link layer
+	 * Add an identifier to the data
 	 * 
 	 * @param data - Data you wish to send
 	 */
@@ -73,10 +69,9 @@ public class NetworkLayer {
 	/**
 	 * Receiver
 	 * 
-	 * Find local IP
-	 * Compare local IP to IP of received data
-	 * If they don't match: Send to transport layer
-	 * If they match: Discard data
+	 * Compare identifier to the its own
+	 * If they match, it discard the data
+	 * else it's send to the transport layer
 	 * 
 	 * @param data - Data received
 	 */

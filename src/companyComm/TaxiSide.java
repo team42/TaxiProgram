@@ -8,8 +8,16 @@ import config.Configuration;
 import model.*;
 import taxiGUI.*;
 
+/**
+ * Class responsible for handling communication
+ * with the company peer
+ * 
+ * @author Nicolai
+ *
+ */
 public class TaxiSide {
 
+	// Variables
 	private InetAddress host;
 	private final int PORT = 4242;
 	private DatagramSocket datagramSocket;
@@ -27,6 +35,17 @@ public class TaxiSide {
 	
 	TaxiModuleGUI tmGUI = null; 
 	
+	/**
+	 * Constructor
+	 * 
+	 * Sets the InetAddress for the company
+	 * Initialize the trip list
+	 * Create taxi module GUI object with reference
+	 * to the object that initialize this object.
+	 * Start timer for sending update taxi coordinates
+	 * 
+	 * @param tmGUI
+	 */
 	public TaxiSide(TaxiModuleGUI tmGUI) {
 		
 		try {
@@ -43,6 +62,16 @@ public class TaxiSide {
 		timer.schedule(new updateTable(), 1000, 5000);
 	}
 	
+	/**
+	 * 
+	 * Sends taxi coordinates to company
+	 * Piggyback an answer for a trip
+	 * Update trip table
+	 * Restart timer
+	 * 
+	 * @param answer
+	 * @param tripID
+	 */
 	public void Answer(char answer, String tripID){
 		timer.cancel();
 		
@@ -100,6 +129,11 @@ public class TaxiSide {
 		timer.schedule(new updateTable(), 2000, 5000);
 	}
 	
+	/**
+	 * Sends an update of taxi coordinates
+	 * Set the trip table specified by the response
+	 * 
+	 */
 	public void getTable() {
 		
 		taxiID = config.getTaxiID();
@@ -109,8 +143,6 @@ public class TaxiSide {
 			datagramSocket = new DatagramSocket();
 			
 			String message = taxiID + coords + "0";
-			
-			//System.out.println(message);
 			
 			outPacket = new DatagramPacket(message.getBytes(), message.length(), host, PORT);
 			datagramSocket.send(outPacket);
@@ -154,6 +186,12 @@ public class TaxiSide {
 		}
 	}
 	
+	/**
+	 * Timertask that call update taxi coordinates <getTable>
+	 * 
+	 * @author Nicolai
+	 *
+	 */
 	class updateTable extends TimerTask  {
 	    public void run (  )   {
 	    	getTable();
