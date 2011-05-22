@@ -46,7 +46,7 @@ public class TaxiModuleGUI extends JFrame {
 	}
 
 	/**
-	 * Set up layout fo components
+	 * Set up layout for components
 	 */
 	private void initComponents() {
 

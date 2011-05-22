@@ -19,7 +19,7 @@ public class TaxiSide {
 
 	// Variables
 	private InetAddress host;
-	private final int PORT = 4242;
+	private final int PORT = 50004;
 	private DatagramSocket datagramSocket;
 	private DatagramPacket inPacket, outPacket;
 	private byte[] buffer;
@@ -73,6 +73,7 @@ public class TaxiSide {
 	 * @param tripID
 	 */
 	public void Answer(char answer, String tripID){
+		
 		timer.cancel();
 		
 		taxiID = config.getTaxiID();

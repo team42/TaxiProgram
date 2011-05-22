@@ -108,20 +108,21 @@ public class TaxiMap {
 		
 		g.setColor(Color.YELLOW);
 		
+		if(tripList.size() > 0) {
 		int j=0;
-		while (j < route.size() - 1) {
-			route = algorithm.Route(start, tripList.get(currentSelected-1).getCoords());
-			tempId = route.get(j);
-			int Ax = mapList.get(tempId).getXCoord();
-			int Ay = mapList.get(tempId).getYCoord();
-			j++;
-			tempId = route.get(j);
-			int Bx = mapList.get(tempId).getXCoord();
-			int By = mapList.get(tempId).getYCoord();
-
-			S2.drawRouteLine(g, Ax, Ay, Bx, By);
+			while (j < route.size() - 1) {
+				route = algorithm.Route(start, tripList.get(currentSelected-1).getCoords());
+				tempId = route.get(j);
+				int Ax = mapList.get(tempId).getXCoord();
+				int Ay = mapList.get(tempId).getYCoord();
+				j++;
+				tempId = route.get(j);
+				int Bx = mapList.get(tempId).getXCoord();
+				int By = mapList.get(tempId).getYCoord();
+	
+				S2.drawRouteLine(g, Ax, Ay, Bx, By);
+			}
 		}
-		
 		int ownX = Integer.parseInt(config.getTaxiCoord().substring(0, 4));
 		int ownY = Integer.parseInt(config.getTaxiCoord().substring(5, 9));
 		
