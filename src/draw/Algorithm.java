@@ -4,8 +4,16 @@ import java.util.ArrayList;
 import model.*;
 import database.*;
 
+/**
+ * 
+ * This class is responsible for all use of the shortest path algorithm
+ * 
+ * @author Kenni, Anders, Nicolai
+ *
+ */
 public class Algorithm {
 
+	// Variable
 	ArrayList<Intersection> mapList = new ArrayList<Intersection>(); // HENT
 
 	ArrayList<Integer> openList = new ArrayList<Integer>();
@@ -13,22 +21,53 @@ public class Algorithm {
 
 	MapDAO mapDAO = new MapDAO();
 
+	/**
+	 * Constructor
+	 * 
+	 * Loads map coordinates
+	 */
 	public Algorithm() {
 		mapList = mapDAO.getMap();
 	}
 
+	/**
+	 * Adds an intersection ID to the open list
+	 * 
+	 * @param c
+	 */
 	private void AddToOpenList(int c) {
 		openList.add(c);
 	}
 
+	/**
+	 * 
+	 * Removes an intersection ID from the open list
+	 * 
+	 * @param c
+	 */
 	private void RemoveFromOpenlist(int c) {
 		openList.remove(c);
 	}
 
+	/**
+	 * 
+	 * Add an intersection ID to the closed list
+	 * 
+	 * @param c
+	 */
 	private void AddToClosedList(int c) {
 		closedList.add(c);
 	}
 
+	/**
+	 * 
+	 * Calculate the heuristics between intersection a and b.
+	 * Uses pythagoras for calculating the heuristics.
+	 * 
+	 * @param a - intersection ID a
+	 * @param b - intersection ID b
+	 * @return Length between the two points
+	 */
 	private double CalcDist(int a, int b) {
 		int xLength = Math.abs(mapList.get(a).getXCoord()
 				- mapList.get(b).getXCoord());
@@ -38,6 +77,13 @@ public class Algorithm {
 		return Math.sqrt(Math.pow(xLength, 2) + Math.pow(yLength, 2));
 	}
 
+	/**
+	 * 
+	 * Calculate G when calculation the shortest path
+	 * 
+	 * @param a
+	 * @return value for g
+	 */
 	private double CalcG(int a) {
 		int parentCell = mapList.get(a).getParentID();
 		double g = mapList.get(parentCell).getG();
@@ -47,12 +93,26 @@ public class Algorithm {
 		return g;
 	}
 
+	/**
+	 * 
+	 * Calculate H when calculation the shortest path
+	 * 
+	 * @param a
+	 * @return value for h
+	 */
 	private double CalcH(int a, int goal) {
 		double h = CalcDist(a, goal);
 
 		return h;
 	}
 
+	/**
+	 * 
+	 * Calculate F when calculation the shortest path
+	 * 
+	 * @param a
+	 * @return value for f
+	 */
 	private double CalcF(int a) {
 		double g = mapList.get(a).getG();
 		double h = mapList.get(a).getH();
@@ -62,6 +122,13 @@ public class Algorithm {
 		return f;
 	}
 
+	/**
+	 * 
+	 * Return the temporary g
+	 * 
+	 * @param a
+	 * @return value for g
+	 */
 	private double CalcTempG(int a) {
 		int parentCell = mapList.get(a).getParentID();
 		double g = mapList.get(parentCell).getG();
@@ -71,6 +138,18 @@ public class Algorithm {
 		return g;
 	}
 
+	/**
+	 * Calculate the route between two coordinates.
+	 * 
+	 * Parameter "begin" is an intersection ID
+	 * Parameter "end" is in coordinate format "xxxx,yyyy"
+	 * "end" parameters are converted to the closest intersection
+	 * and the route is return in an arraylist of intersection IDs
+	 * 
+	 * @param begin - start coordinate
+	 * @param end - end coordinate
+	 * @return ArrayList of intersection ID, which represent the route
+	 */
 	public ArrayList<Integer> Route(int begin, String end) {
 
 		openList.clear();
@@ -181,6 +260,17 @@ public class Algorithm {
 		return routeList;
 	} // End method Route
 
+	/**
+	 * Calculate the shortest route length between two coordinates.
+	 * 
+	 * Parameters is in coordinate format "xxxx,yyyy"
+	 * These parameters are converted to the closest intersection
+	 * and the route length is returned as an double.
+	 * 
+	 * @param begin - start coordinate
+	 * @param end - end coordinate
+	 * @return double representing the length of the shortest route
+	 */
 	public double RouteLength(String begin, String end) {
 		// Switch Start and goal to backtrack route
 		int start = findClosestPoint(end);
@@ -275,6 +365,14 @@ public class Algorithm {
 		}
 	} // End method RouteLength
 
+	/**
+	 * 
+	 * Finds the intersection closest to a coordinate
+	 * This is done using pythagoras
+	 * 
+	 * @param coordinate
+	 * @return Intersection ID of the closest intersection
+	 */
 	public int findClosestPoint(String coordinate) {
 		int thisX = Integer.parseInt(coordinate.substring(0, 4));
 		int thisY = Integer.parseInt(coordinate.substring(5, 9));

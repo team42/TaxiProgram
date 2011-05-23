@@ -11,6 +11,7 @@ import gnu.io.*;
  * @author Lasse
  * 
  */
+@SuppressWarnings("restriction")
 public class PhysicalLayer implements SerialPortEventListener {
    private static final int            BAUDRATE = 2400;
    @SuppressWarnings("rawtypes")
